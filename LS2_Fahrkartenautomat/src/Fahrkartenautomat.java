@@ -1,3 +1,5 @@
+//A3.3 ist implementiert
+
 import java.util.Scanner;
 
 class Fahrkartenautomat {
@@ -20,7 +22,7 @@ class Fahrkartenautomat {
 		nochZuZahlen = 0.0;
 		while (eingezahlterGesamtbetrag < zuZahlenderBetrag) {
 			nochZuZahlen = zuZahlenderBetrag - eingezahlterGesamtbetrag;
-			System.out.println("Noch zu zahlen: " + nochZuZahlen);
+			System.out.printf("Noch zu zahlen: %.2f Euro \n", nochZuZahlen);
 			System.out.print("Eingabe (mind. 5 Cent, höchstens 2 Euro): ");
 			eingeworfeneMuenze = tastatur.nextDouble();
 			eingezahlterGesamtbetrag = eingezahlterGesamtbetrag + eingeworfeneMuenze;
@@ -42,7 +44,7 @@ class Fahrkartenautomat {
 		// Rückgelberechnung und Ausgabe
 		rueckgabebetrag = eingezahlterGesamtbetrag - zuZahlenderBetrag;
 		if (rueckgabebetrag > 0.0) {
-			System.out.println("Der Rückgabebetrag in Höhe von " + rueckgabebetrag + " Euro");
+			System.out.printf("Der Rückgabebetrag in Höhe von: %.2f Euro ", rueckgabebetrag);
 			System.out.println("wird in folgenden Münzen ausgezahlt:");
 
 			while (rueckgabebetrag >= 2.0) { // 2-Euro-Münzen
