@@ -1,6 +1,7 @@
 //A3.3 ist implementiert
 //A3.4 ist implementiert
 //A3.5 ist implementiert
+//A4.4 ist implementiert
 
 import java.util.Scanner;
 
@@ -18,10 +19,18 @@ class Fahrkartenautomat {
 		// Geldbetrag eingeben
 		System.out.print("Zu zahlender Betrag (Euro): ");
 		zuZahlenderBetrag = tastatur.nextDouble();
+		if(zuZahlenderBetrag < 0 || zuZahlenderBetrag > 10) {
+			zuZahlenderBetrag = 1;
+			System.out.println("Fehlerhafte Eingabe - Ticketpreis wird auf 1 gesetzt!");
+		}
 		
 		// Anzahl der Farkarten eingebn
 		System.out.print("Anzahl der Fahrkarten: ");
 		byte anzahlFahrkarten = tastatur.nextByte();
+		if(anzahlFahrkarten < 0 || anzahlFahrkarten > 10) {
+			anzahlFahrkarten = 1;
+			System.out.println("Fehlerhafte Eingabe - Anzahl der Tickets wird auf 1 gesetzt!");
+		}
 		
 		//neuer zu zahlender Betrag
 		zuZahlenderBetrag = zuZahlenderBetrag * anzahlFahrkarten;
