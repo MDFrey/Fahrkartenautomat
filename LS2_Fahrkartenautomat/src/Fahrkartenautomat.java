@@ -2,6 +2,7 @@
 //A3.4 ist implementiert
 //A3.5 ist implementiert
 //A4.4 ist implementiert
+//A4.6 ist implementiert
 
 import java.util.Scanner;
 
@@ -43,7 +44,11 @@ class Fahrkartenautomat {
 			System.out.printf("Noch zu zahlen: %.2f Euro \n", nochZuZahlen);
 			System.out.print("Eingabe (mind. 5 Cent, höchstens 2 Euro): ");
 			eingeworfeneMuenze = tastatur.nextDouble();
+			if(eingeworfeneMuenze == 0.05 || eingeworfeneMuenze == 0.10 || eingeworfeneMuenze == 0.20 || eingeworfeneMuenze == 0.50 || eingeworfeneMuenze == 1 || eingeworfeneMuenze == 2 || eingeworfeneMuenze == 5 || eingeworfeneMuenze == 10 || eingeworfeneMuenze == 20) {
 			eingezahlterGesamtbetrag = eingezahlterGesamtbetrag + eingeworfeneMuenze;
+			}else {
+				System.out.println(">> Kein gueltiges Zahlungsmittel!");
+			}
 		}
 		
 		// Fahrscheinausgabe
