@@ -19,6 +19,9 @@ public class Schaltjahr {
 				else {
 					System.out.println("Bei dieser Jahreszahl handelt es sich um ein schaltjahr.");
 				}
+		} else {
+			System.out.println("Bei dieser Jahreszahl handelt es sich um kein schaltjahr.");
+		}
+		eingabe.close();
 	}
-
 }
