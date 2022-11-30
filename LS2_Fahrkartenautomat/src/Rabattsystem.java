@@ -20,6 +20,7 @@ public class Rabattsystem {
 				System.out.println("Der Bestellwert abzueglich Rabatt betraegt: " + ausgabe + " EUR");
 			}
 			System.out.println();
+			eingabe.close();
 		}
 	}
 	
