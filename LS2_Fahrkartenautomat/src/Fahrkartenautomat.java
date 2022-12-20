@@ -42,7 +42,7 @@ class Fahrkartenautomat {
 		while (eingezahlterGesamtbetrag < zuZahlenderBetrag) {
 			nochZuZahlen = zuZahlenderBetrag - eingezahlterGesamtbetrag;
 			System.out.printf("Noch zu zahlen: %.2f Euro \n", nochZuZahlen);
-			System.out.print("Eingabe (mind. 5 Cent, höchstens 2 Euro): ");
+			System.out.print("Eingabe (mind. 5 Cent, höchstens 20 Euro-Schein): ");
 			eingeworfeneMuenze = tastatur.nextDouble();
 			if(eingeworfeneMuenze == 0.05 || eingeworfeneMuenze == 0.10 || eingeworfeneMuenze == 0.20 || eingeworfeneMuenze == 0.50 || eingeworfeneMuenze == 1 || eingeworfeneMuenze == 2 || eingeworfeneMuenze == 5 || eingeworfeneMuenze == 10 || eingeworfeneMuenze == 20) {
 			eingezahlterGesamtbetrag = eingezahlterGesamtbetrag + eingeworfeneMuenze;
