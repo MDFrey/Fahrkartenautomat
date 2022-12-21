@@ -26,5 +26,7 @@ public class GroessterWert {
     	  max = b; 
       }
      System.out.println("Der größte eingegebene Wert ist: " + max);
+     
+     Tastatur.close();
    }
 }

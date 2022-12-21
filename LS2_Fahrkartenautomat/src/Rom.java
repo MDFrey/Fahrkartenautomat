@@ -41,14 +41,12 @@ public class Rom {
 			
 			int erste = Integer.parseInt(splits[i]);
 			int zweite = Integer.parseInt(splits[a]);
-			//int dritte = Integer.parseInt(splits[a + 1]);
 			
 			
 			if((a + 1) == splits.length) {
 				if(erste > zweite) {
 					ausgabe += zweite;
 					a++;
-					//i++;
 				}	
 			}else {
 				boolean kleiner = zweite < Integer.parseInt(splits[(a + 1)]);
@@ -56,7 +54,6 @@ public class Rom {
 				ausgabe += (Integer.parseInt(splits[(a + 1)]) - zweite);
 				a++;
 				a++;
-				//i++;
 				} else if(erste > zweite && !kleiner) {
 					ausgabe += zweite;
 					a++;
@@ -69,7 +66,6 @@ public class Rom {
 			} else if(erste == zweite) {
 				ausgabe += zweite;
 				a++;
-				//i++;
 			}
 			
 			if(a == splits.length) {

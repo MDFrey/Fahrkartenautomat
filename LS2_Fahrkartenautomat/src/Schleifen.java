@@ -2,9 +2,6 @@
 public class Schleifen {
 
 	public static void main(String[] args) {
-		/*for(int i=1; i<=20; i=i+1) {
-		      System.out.printf("%d ", i*i);
-		}*/
 		
 		int i = 1;
 		while(i <= 20) {

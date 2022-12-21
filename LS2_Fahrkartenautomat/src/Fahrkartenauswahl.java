@@ -1,5 +1,6 @@
 //4.6 ist implementiert
 //5.3 ist implementiert
+//5.4 ist implementiert
 
 import java.util.Scanner;
 
@@ -13,66 +14,81 @@ class Fahrkartenauswahl {
 		double eingeworfeneMuenze;
 		double rueckgabebetrag;
 		double nochZuZahlen;
+		boolean mehr = true;
+		double endPreis = 0;
 		
 		System.out.println("Fahrkartenbestellvorgang: \n");
 		System.out.print("===================================\n \n");
-
-		/*// Geldbetrag eingeben
-		System.out.print("Zu zahlender Betrag (Euro): ");
-		zuZahlenderBetrag = tastatur.nextDouble();
-		if(zuZahlenderBetrag < 0 || zuZahlenderBetrag > 10) {
-			zuZahlenderBetrag = 1;
-			System.out.println("Fehlerhafte Eingabe - Ticketpreis wird auf 1 gesetzt!");
-		}*/
 		
-		System.out.println("Wählen Sie ihre Fahrkarte für Berlin AB aus:");
-		System.out.println("	Kurzstrecke AB [2,00 EUR] (1)");
-		System.out.println("	Einzelfahrschein AB [3,00 EUR] (2)");
-		System.out.println("	Tageskarte AB [8,00 EUR] (3)");
-		System.out.println("	4-Fahrten-Karte AB [9,40 EUR] (4)\n");
-
-		System.out.print("Ihre Wahl: ");
-		int eingabe = Integer.parseInt(tastatur.next());
 		
-		while(eingabe < 1 || eingabe > 4) {
-			System.out.println(">>ungültige Eingabe!<< \n");
-			
+		while(mehr) {
+			System.out.println("Wählen Sie ihre Fahrkarte für Berlin AB aus:");
+			System.out.println("	Kurzstrecke AB [2,00 EUR] (1)");
+			System.out.println("	Einzelfahrschein AB [3,00 EUR] (2)");
+			System.out.println("	Tageskarte AB [8,00 EUR] (3)");
+			System.out.println("	4-Fahrten-Karte AB [9,40 EUR] (4)\n");
+
 			System.out.print("Ihre Wahl: ");
-			eingabe = Integer.parseInt(tastatur.next());
+			int eingabe = Integer.parseInt(tastatur.next());
+		
+			while(eingabe < 1 || eingabe > 4) {
+				System.out.println(">>ungültige Eingabe!<< \n");
+			
+				System.out.print("Ihre Wahl: ");
+				eingabe = Integer.parseInt(tastatur.next());
+				System.out.println();
+			}
+		
+			switch(eingabe) {
+			case 1:
+				zuZahlenderBetrag = 2.00;
+				break;
+			case 2:
+					zuZahlenderBetrag = 3.00;
+					break;
+			case 3:
+					zuZahlenderBetrag = 8.00;
+					break;
+			case 4:
+					zuZahlenderBetrag = 9.40;
+					break;
+			}
+		
+			// Anzahl der Farkarten eingebn
+			System.out.print("Anzahl der Fahrkarten: ");
+			byte anzahlFahrkarten = tastatur.nextByte();
+			if(anzahlFahrkarten < 0 || anzahlFahrkarten > 10) {
+				anzahlFahrkarten = 1;
+				System.out.println("Fehlerhafte Eingabe - Anzahl der Tickets wird auf 1 gesetzt!");
+			}
+			
+			endPreis += zuZahlenderBetrag * anzahlFahrkarten;
+			zuZahlenderBetrag = 0;
+			
+			System.out.print("Haben Sie vor weitere Fahrkarten zu bestellen? (ja/nein): ");
+			String fahrkarten = tastatur.next();
 			System.out.println();
+			String weitereFahrkarten = fahrkarten.toLowerCase();
+			
+			while(!weitereFahrkarten.contains("ja") && !weitereFahrkarten.contains("nein")) {
+				System.out.println("Geben Sie eine gültige Auswahl ein!\n");
+				System.out.print("Haben Sie vor weitere Fahrkarten zu bestellen? (ja/nein): ");
+				System.out.println();
+				weitereFahrkarten = tastatur.next().toLowerCase();
+				if(weitereFahrkarten.contains("ja") || weitereFahrkarten.contains("nein")) {
+					break;
+			}
+			}
+			if(weitereFahrkarten.contains("nein")) {
+				mehr = false;
+			}
 		}
-		
-		switch(eingabe) {
-		case 1:
-			zuZahlenderBetrag = 2.00;
-			break;
-		case 2:
-			zuZahlenderBetrag = 3.00;
-			break;
-		case 3:
-			zuZahlenderBetrag = 8.00;
-			break;
-		case 4:
-			zuZahlenderBetrag = 9.40;
-			break;
-		}
-		
-		// Anzahl der Farkarten eingebn
-		System.out.print("Anzahl der Fahrkarten: ");
-		byte anzahlFahrkarten = tastatur.nextByte();
-		if(anzahlFahrkarten < 0 || anzahlFahrkarten > 10) {
-			anzahlFahrkarten = 1;
-			System.out.println("Fehlerhafte Eingabe - Anzahl der Tickets wird auf 1 gesetzt!");
-		}
-		
-		//neuer zu zahlender Betrag
-		zuZahlenderBetrag = zuZahlenderBetrag * anzahlFahrkarten;
 
 		// Geldeinwurf
 		eingezahlterGesamtbetrag = 0.0;
 		nochZuZahlen = 0.0;
-		while (eingezahlterGesamtbetrag < zuZahlenderBetrag) {
-			nochZuZahlen = zuZahlenderBetrag - eingezahlterGesamtbetrag;
+		while (eingezahlterGesamtbetrag < endPreis) {
+			nochZuZahlen = endPreis - eingezahlterGesamtbetrag;
 			System.out.printf("Noch zu zahlen: %.2f Euro \n", nochZuZahlen);
 			System.out.print("Eingabe (mind. 5 Cent, höchstens 20 Euro-Schein): ");
 			eingeworfeneMuenze = tastatur.nextDouble();
@@ -97,7 +113,7 @@ class Fahrkartenauswahl {
 		System.out.println("\n\n");
 		
 		// Rückgelberechnung und Ausgabe
-		rueckgabebetrag = eingezahlterGesamtbetrag - zuZahlenderBetrag;
+		rueckgabebetrag = eingezahlterGesamtbetrag - endPreis;
 		rueckgabebetrag = Math.round(rueckgabebetrag * 100) / 100.0;
 		
 		if (rueckgabebetrag > 0.0) {
