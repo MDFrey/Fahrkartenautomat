@@ -16,6 +16,9 @@ class Fahrkartenautomat {
 		double eingeworfeneMuenze;
 		double rueckgabebetrag;
 		double nochZuZahlen;
+		
+		//A6.2.1
+		Begruessung();
 
 		// Geldbetrag eingeben
 		System.out.print("Zu zahlender Betrag (Euro): ");
@@ -108,5 +111,10 @@ class Fahrkartenautomat {
 				+ "Wir wünschen Ihnen eine gute Fahrt.");
 
 		tastatur.close();
+	}
+	
+	public static void Begruessung() {
+		System.out.println("Herzlich Wilkkommen!");
+		System.out.println();
 	}
 }
