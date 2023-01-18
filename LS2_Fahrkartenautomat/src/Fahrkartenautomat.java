@@ -6,6 +6,7 @@
 //A6.2.1 ist implementiert
 //A6.2.2 ist implementiert
 //A6.2.3 ist implementiert
+//A6.2.4 ist implementiert
 
 import java.util.Scanner;
 
@@ -23,18 +24,8 @@ class Fahrkartenautomat {
 		//A6.2.3
 		double eingezahlterGesamtbetrag = Bezahlung(tastatur, zuZahlenderBetrag);
 		
-		// Fahrscheinausgabe
-		System.out.println("\nFahrschein wird ausgegeben");
-		for (int i = 0; i < 8; i++) {
-			System.out.print("=");
-			try {
-				Thread.sleep(200);
-			} 
-			catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-		System.out.println("\n\n");
+		//A6.2.4
+		Fahrkartenausgabe();
 		
 		// Rückgelberechnung
 		rueckgabebetrag = eingezahlterGesamtbetrag - zuZahlenderBetrag;
@@ -136,5 +127,20 @@ class Fahrkartenautomat {
 		}
 		
 		return eingezahlterGesamtbetrag;
+	}
+	
+	public static void Fahrkartenausgabe() {
+		// Fahrscheinausgabe
+		System.out.println("\nFahrschein wird ausgegeben");
+		for (int i = 0; i < 8; i++) {
+			System.out.print("=");
+			try {
+				Thread.sleep(200);
+			} 
+			catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		System.out.println("\n\n");
 	}
 }
