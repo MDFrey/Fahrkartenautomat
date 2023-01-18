@@ -3,6 +3,8 @@
 //A3.5 ist implementiert
 //A4.4 ist implementiert
 //A4.6 ist implementiert
+//A6.2.1 ist implementiert
+//A6.2.2 ist implementiert
 
 import java.util.Scanner;
 
@@ -10,67 +12,14 @@ class Fahrkartenautomat {
 	public static void main(String[] args) {
 
 		Scanner tastatur = new Scanner(System.in);
-
-		double zuZahlenderBetrag;
-		double eingezahlterGesamtbetrag;
-		double eingeworfeneMuenze;
-		double rueckgabebetrag;
-		double nochZuZahlen;
 		
 		//A6.2.1
 		Begruessung();
-
-		// Geldbetrag eingeben
-		System.out.print("Zu zahlender Betrag (Euro): ");
-		zuZahlenderBetrag = tastatur.nextDouble();
-		if(zuZahlenderBetrag < 0 || zuZahlenderBetrag > 10) {
-			zuZahlenderBetrag = 1;
-			System.out.println("Fehlerhafte Eingabe - Ticketpreis wird auf 1 gesetzt!");
-		}
 		
-		// Anzahl der Farkarten eingebn
-		System.out.print("Anzahl der Fahrkarten: ");
-		byte anzahlFahrkarten = tastatur.nextByte();
-		if(anzahlFahrkarten < 0 || anzahlFahrkarten > 10) {
-			anzahlFahrkarten = 1;
-			System.out.println("Fehlerhafte Eingabe - Anzahl der Tickets wird auf 1 gesetzt!");
-		}
+		//A6.2.2
+		double rueckgabebetrag = FahrkartenbestellungErfassen(tastatur);
 		
-		//neuer zu zahlender Betrag
-		zuZahlenderBetrag = zuZahlenderBetrag * anzahlFahrkarten;
-
-		// Geldeinwurf
-		eingezahlterGesamtbetrag = 0.0;
-		nochZuZahlen = 0.0;
-		while (eingezahlterGesamtbetrag < zuZahlenderBetrag) {
-			nochZuZahlen = zuZahlenderBetrag - eingezahlterGesamtbetrag;
-			System.out.printf("Noch zu zahlen: %.2f Euro \n", nochZuZahlen);
-			System.out.print("Eingabe (mind. 5 Cent, höchstens 20 Euro-Schein): ");
-			eingeworfeneMuenze = tastatur.nextDouble();
-			if(eingeworfeneMuenze == 0.05 || eingeworfeneMuenze == 0.10 || eingeworfeneMuenze == 0.20 || eingeworfeneMuenze == 0.50 || eingeworfeneMuenze == 1 || eingeworfeneMuenze == 2 || eingeworfeneMuenze == 5 || eingeworfeneMuenze == 10 || eingeworfeneMuenze == 20) {
-			eingezahlterGesamtbetrag = eingezahlterGesamtbetrag + eingeworfeneMuenze;
-			}else {
-				System.out.println(">> Kein gueltiges Zahlungsmittel!");
-			}
-		}
-		
-		// Fahrscheinausgabe
-		System.out.println("\nFahrschein wird ausgegeben");
-		for (int i = 0; i < 8; i++) {
-			System.out.print("=");
-			try {
-				Thread.sleep(200);
-			} 
-			catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-		System.out.println("\n\n");
-		
-		// Rückgelberechnung und Ausgabe
-		rueckgabebetrag = eingezahlterGesamtbetrag - zuZahlenderBetrag;
-		rueckgabebetrag = Math.round(rueckgabebetrag * 100) / 100.0;
-		
+		//Ausgabe
 		if (rueckgabebetrag > 0.0) {
 			System.out.printf("Der Rückgabebetrag in Höhe von: %.2f Euro ", rueckgabebetrag);
 			System.out.println("wird in folgenden Münzen ausgezahlt:");
@@ -106,7 +55,7 @@ class Fahrkartenautomat {
 				rueckgabebetrag = Math.round(rueckgabebetrag * 100) / 100.0;
 			}
 		}
-
+		
 		System.out.println("\nVergessen Sie nicht, den Fahrschein\n" + "vor Fahrtantritt entwerten zu lassen!\n"
 				+ "Wir wünschen Ihnen eine gute Fahrt.");
 
@@ -116,5 +65,66 @@ class Fahrkartenautomat {
 	public static void Begruessung() {
 		System.out.println("Herzlich Wilkkommen!");
 		System.out.println();
+	}
+	
+	public static double FahrkartenbestellungErfassen(Scanner tastatur) {
+		double zuZahlenderBetrag;
+		double eingezahlterGesamtbetrag;
+		double eingeworfeneMuenze;
+		double rueckgabebetrag;
+		double nochZuZahlen;
+		
+		// Geldbetrag eingeben
+		System.out.print("Zu zahlender Betrag (Euro): ");
+		zuZahlenderBetrag = tastatur.nextDouble();
+		if(zuZahlenderBetrag < 0 || zuZahlenderBetrag > 10) {
+			zuZahlenderBetrag = 1;
+			System.out.println("Fehlerhafte Eingabe - Ticketpreis wird auf 1 gesetzt!");
+		}
+		
+		// Anzahl der Farkarten eingebn
+		System.out.print("Anzahl der Fahrkarten: ");
+		byte anzahlFahrkarten = tastatur.nextByte();
+		if(anzahlFahrkarten < 0 || anzahlFahrkarten > 10) {
+			anzahlFahrkarten = 1;
+			System.out.println("Fehlerhafte Eingabe - Anzahl der Tickets wird auf 1 gesetzt!");
+		}
+		System.out.println();
+		
+		//neuer zu zahlender Betrag
+		zuZahlenderBetrag = zuZahlenderBetrag * anzahlFahrkarten;
+
+		// Geldeinwurf
+		eingezahlterGesamtbetrag = 0.0;
+		nochZuZahlen = 0.0;
+		while (eingezahlterGesamtbetrag < zuZahlenderBetrag) {
+			nochZuZahlen = zuZahlenderBetrag - eingezahlterGesamtbetrag;
+			System.out.printf("Noch zu zahlen: %.2f Euro \n", nochZuZahlen);
+			System.out.print("Eingabe (mind. 5 Cent, höchstens 20 Euro-Schein): ");
+			eingeworfeneMuenze = tastatur.nextDouble();
+			if(eingeworfeneMuenze == 0.05 || eingeworfeneMuenze == 0.10 || eingeworfeneMuenze == 0.20 || eingeworfeneMuenze == 0.50 || eingeworfeneMuenze == 1 || eingeworfeneMuenze == 2 || eingeworfeneMuenze == 5 || eingeworfeneMuenze == 10 || eingeworfeneMuenze == 20) {
+			eingezahlterGesamtbetrag = eingezahlterGesamtbetrag + eingeworfeneMuenze;
+			}else {
+				System.out.println(">> Kein gueltiges Zahlungsmittel!");
+			}
+		}
+		
+		// Fahrscheinausgabe
+		System.out.println("\nFahrschein wird ausgegeben");
+		for (int i = 0; i < 8; i++) {
+			System.out.print("=");
+			try {
+				Thread.sleep(200);
+			} 
+			catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		System.out.println("\n\n");
+		
+		// Rückgelberechnung
+		rueckgabebetrag = eingezahlterGesamtbetrag - zuZahlenderBetrag;
+		rueckgabebetrag = Math.round(rueckgabebetrag * 100) / 100.0;	
+		return rueckgabebetrag;
 	}
 }
