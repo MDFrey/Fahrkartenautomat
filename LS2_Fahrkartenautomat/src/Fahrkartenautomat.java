@@ -5,6 +5,7 @@
 //A4.6 ist implementiert
 //A6.2.1 ist implementiert
 //A6.2.2 ist implementiert
+//A6.2.3 ist implementiert
 
 import java.util.Scanner;
 
@@ -12,12 +13,32 @@ class Fahrkartenautomat {
 	public static void main(String[] args) {
 
 		Scanner tastatur = new Scanner(System.in);
+		double rueckgabebetrag;
 		
 		//A6.2.1
 		Begruessung();
 		
 		//A6.2.2
-		double rueckgabebetrag = FahrkartenbestellungErfassen(tastatur);
+		double zuZahlenderBetrag = FahrkartenbestellungErfassen(tastatur);
+		//A6.2.3
+		double eingezahlterGesamtbetrag = Bezahlung(tastatur, zuZahlenderBetrag);
+		
+		// Fahrscheinausgabe
+		System.out.println("\nFahrschein wird ausgegeben");
+		for (int i = 0; i < 8; i++) {
+			System.out.print("=");
+			try {
+				Thread.sleep(200);
+			} 
+			catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		System.out.println("\n\n");
+		
+		// Rückgelberechnung
+		rueckgabebetrag = eingezahlterGesamtbetrag - zuZahlenderBetrag;
+		rueckgabebetrag = Math.round(rueckgabebetrag * 100) / 100.0;
 		
 		//Ausgabe
 		if (rueckgabebetrag > 0.0) {
@@ -69,10 +90,6 @@ class Fahrkartenautomat {
 	
 	public static double FahrkartenbestellungErfassen(Scanner tastatur) {
 		double zuZahlenderBetrag;
-		double eingezahlterGesamtbetrag;
-		double eingeworfeneMuenze;
-		double rueckgabebetrag;
-		double nochZuZahlen;
 		
 		// Geldbetrag eingeben
 		System.out.print("Zu zahlender Betrag (Euro): ");
@@ -93,7 +110,16 @@ class Fahrkartenautomat {
 		
 		//neuer zu zahlender Betrag
 		zuZahlenderBetrag = zuZahlenderBetrag * anzahlFahrkarten;
-
+		
+	
+		return zuZahlenderBetrag;
+	}
+	
+	public static double Bezahlung(Scanner tastatur, double zuZahlenderBetrag) {
+		double nochZuZahlen;
+		double eingezahlterGesamtbetrag;
+		double eingeworfeneMuenze;
+		
 		// Geldeinwurf
 		eingezahlterGesamtbetrag = 0.0;
 		nochZuZahlen = 0.0;
@@ -109,22 +135,6 @@ class Fahrkartenautomat {
 			}
 		}
 		
-		// Fahrscheinausgabe
-		System.out.println("\nFahrschein wird ausgegeben");
-		for (int i = 0; i < 8; i++) {
-			System.out.print("=");
-			try {
-				Thread.sleep(200);
-			} 
-			catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-		System.out.println("\n\n");
-		
-		// Rückgelberechnung
-		rueckgabebetrag = eingezahlterGesamtbetrag - zuZahlenderBetrag;
-		rueckgabebetrag = Math.round(rueckgabebetrag * 100) / 100.0;	
-		return rueckgabebetrag;
+		return eingezahlterGesamtbetrag;
 	}
 }
