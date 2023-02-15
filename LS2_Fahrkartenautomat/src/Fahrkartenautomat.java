@@ -9,14 +9,19 @@
 //A6.2.4 ist implementiert
 //A6.2.5 ist implementiert
 //A6.3 ist implementiert
+//A7.3 ist implementiert
 
 import java.util.Scanner;
 
 class Fahrkartenautomat {
+	
+	static String fahrkarte = "";
+	
 	public static void main(String[] args) {
 
 		Scanner tastatur = new Scanner(System.in);
 		double rueckgabebetrag;
+		
 		
 		//A6.2.1
 		Begruessung();
@@ -50,6 +55,69 @@ class Fahrkartenautomat {
 	}
 	
 	public static double FahrkartenbestellungErfassen(Scanner tastatur) {
+		
+		//A7.3
+		double zuZahlenderBetrag = 0;
+		
+		String[] fahrkarten =  {
+				"Einzelfahrschein AB", 
+				"Einzelfahrschein BC", 
+				"Einzelfahrschein ABC",
+				"Kurzstrecke AB",
+				"Tageskarte AB",
+				"Tageskarte BC",
+				"Tageskarte ABC",
+				"4-Fahrten-Karte AB",
+				"4-Fahrten-Karte BC",
+				"4-Fahrten-Karte ABC",
+				"Kleingruppen-Tageskarte AB",
+				"Kleingruppen-Tageskarte BC",
+				"Kleingruppen-Tageskarte ABC"
+				};
+		
+		double[] preise = {
+				3,
+				3.5,
+				3.8,
+				2,
+				8.6,
+				9.2,
+				10,
+				9.4,
+				12.6,
+				13.8,
+				25.5,
+				26,
+				26.5
+		};
+		
+		for(int i = 0; i < fahrkarten.length; i++) {
+			
+			int length = 40;
+			int usedLength = fahrkarten[i].length() + 2 + Double.toString(preise[i]).length() + 3;
+			length = length - usedLength;
+			
+			System.out.printf("%s [%.2f]", fahrkarten[i], preise[i]);
+			for(int a = 0; a < length; a++) {
+				System.out.print(" ");
+			}
+			System.out.print("(" + i + ")\n");
+			
+		}
+		
+		System.out.print("\nIhre Auswahl: ");
+		int auswahl = tastatur.nextInt();
+		
+		System.out.print("\nAnzahl der Fahrkarten: ");
+		int anzahl = tastatur.nextInt();
+		
+		fahrkarte = fahrkarten[auswahl];
+		
+		zuZahlenderBetrag = preise[auswahl] * anzahl;
+		return zuZahlenderBetrag;
+		
+		
+		/*
 		double zuZahlenderBetrag;
 		
 		// Geldbetrag eingeben
@@ -73,7 +141,7 @@ class Fahrkartenautomat {
 		zuZahlenderBetrag = zuZahlenderBetrag * anzahlFahrkarten;
 		
 	
-		return zuZahlenderBetrag;
+		return zuZahlenderBetrag;*/
 	}
 	
 	public static double Bezahlung(Scanner tastatur, double zuZahlenderBetrag) {
@@ -85,10 +153,13 @@ class Fahrkartenautomat {
 		eingezahlterGesamtbetrag = 0.0;
 		nochZuZahlen = 0.0;
 		while (eingezahlterGesamtbetrag < zuZahlenderBetrag) {
+			
 			nochZuZahlen = zuZahlenderBetrag - eingezahlterGesamtbetrag;
 			System.out.printf("Noch zu zahlen: %.2f Euro \n", nochZuZahlen);
 			System.out.print("Eingabe (mind. 5 Cent, höchstens 20 Euro-Schein): ");
+			
 			eingeworfeneMuenze = tastatur.nextDouble();
+			
 			if(eingeworfeneMuenze == 0.05 || eingeworfeneMuenze == 0.10 || eingeworfeneMuenze == 0.20 || eingeworfeneMuenze == 0.50 || eingeworfeneMuenze == 1 || eingeworfeneMuenze == 2 || eingeworfeneMuenze == 5 || eingeworfeneMuenze == 10 || eingeworfeneMuenze == 20) {
 			eingezahlterGesamtbetrag = eingezahlterGesamtbetrag + eingeworfeneMuenze;
 			}else {
@@ -101,17 +172,17 @@ class Fahrkartenautomat {
 	
 	public static void Fahrkartenausgabe() {
 		// Fahrscheinausgabe
-		System.out.println("\nFahrschein wird ausgegeben");
+		System.out.println("\nFahrschein '" + fahrkarte + "' wird ausgegeben");
 		for (int i = 0; i < 8; i++) {
 			System.out.print("=");
 			try {
-				Thread.sleep(200);
+				Thread.sleep(400);
 			} 
 			catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
-		System.out.println("\n\n");
+		System.out.println("\n");
 	}
 	
 	public static void Rueckgeldausgabe(double rueckgabebetrag) {	
@@ -119,7 +190,7 @@ class Fahrkartenautomat {
 		//Ausgabe
 		if (rueckgabebetrag > 0.0) {
 			System.out.printf("Der Rückgabebetrag in Höhe von: %.2f Euro ", rueckgabebetrag);
-			System.out.println("wird in folgenden Münzen ausgezahlt:");
+			System.out.println("wird in folgenden Münzen ausgezahlt:\n");
 			
 			rueckgabebetrag = Rueckgeldberechnung(2.0, rueckgabebetrag, "2 Euro"); //2-Euro-Münzen
 			rueckgabebetrag = Rueckgeldberechnung(1.0, rueckgabebetrag, "1 Euro"); //1-Euro-Münzen
