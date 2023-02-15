@@ -1,4 +1,4 @@
-//A 6.4.2 ist implementiert
+//A 6.4.4 ist implementiert
 
 import java.util.Scanner;
 
