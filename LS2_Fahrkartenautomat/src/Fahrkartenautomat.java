@@ -116,7 +116,7 @@ class Fahrkartenautomat {
 		zuZahlenderBetrag = preise[auswahl] * anzahl;
 		return zuZahlenderBetrag;
 		
-		
+		//A6.2.2
 		/*
 		double zuZahlenderBetrag;
 		
