@@ -41,7 +41,8 @@ public class Suche {
 			System.out.println("	" + array1[i]);
 			
 		}
-
+		
+		eingabe.close();
 	}
 
 }
